@@ -1,0 +1,537 @@
+:root {
+  --sky-top: #e6eefc;
+  --sky-bottom: #f6f3fb;
+  --ink: #1f2a44;
+  --muted: #5b6785;
+  --accent: #3d59b8;
+  --accent-soft: #c0d6fa;
+  --card: rgba(255, 255, 255, 0.72);
+  --night: #101626;
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--sky-bottom);
+  color: var(--ink);
+  overscroll-behavior: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------- 开场页：整页是一幅水彩画 ---------- */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #fbf8f1; /* 水彩纸的颜色：画还没铺开时也不是空白 */
+  color: var(--ink);
+}
+
+.meadow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.intro.painted .meadow {
+  opacity: 1;
+}
+
+.intro-text {
+  position: absolute;
+  z-index: 1;
+  top: max(8vh, calc(env(safe-area-inset-top) + 28px));
+  left: 0;
+  right: 0;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: #55617f;
+}
+
+/* 这个盒子只占位：真正的标题画在下面的水彩画里 */
+.intro-text h1 {
+  width: min(88vw, 400px);
+  aspect-ratio: 3.63;
+  margin: 8px auto 0;
+  font-size: clamp(40px, 12vw, 58px);
+  line-height: 1.8;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: transparent;
+}
+
+.intro.plain h1 {
+  font-family: 'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Source Han Serif SC', 'SimSun', serif;
+  color: #27345c;
+}
+
+/* 中文 / EN 切换 */
+.lang-switch {
+  position: absolute;
+  z-index: 2;
+  top: max(12px, env(safe-area-inset-top));
+  right: 12px;
+  padding: 6px 12px;
+  border: 1px solid rgba(71, 97, 159, 0.35);
+  border-radius: 999px;
+  font-size: 13px;
+  color: #3e4a6b;
+  background: rgba(251, 248, 241, 0.7);
+}
+
+/* 英文：标题盒子里放一行手写体；正文和按钮不用中文的大字距 */
+.intro-text h1:lang(en) {
+  font-size: clamp(28px, 8vw, 40px);
+  letter-spacing: 0.02em;
+}
+
+.intro.plain h1:lang(en) {
+  font-family: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+  font-style: italic;
+}
+
+.en:lang(zh-CN) {
+  font-family: 'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Source Han Serif SC', serif;
+  font-style: normal;
+  letter-spacing: 0.3em;
+}
+
+.lead:lang(en),
+.cta:lang(en) {
+  font-family: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+  letter-spacing: 0.02em;
+}
+
+.cta:lang(en) {
+  letter-spacing: 0.06em;
+  text-indent: 0.06em;
+}
+
+.en {
+  margin: 6px 0 0;
+  font-family: 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+  font-size: 15px;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: #47619f;
+}
+
+.lead {
+  margin: 20px 0 24px;
+  font-family: 'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Source Han Serif SC', serif;
+  font-size: 16px;
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  color: #3e4a6b;
+}
+
+.cta {
+  min-width: 164px;
+  border: 0;
+  padding: 15px 38px;
+  font-family: 'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Source Han Serif SC', serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  color: #fff;
+  /* 水彩笔触的底图由脚本画好；没加载时退回到纯色 */
+  background: #4763b4 center / 100% 100% no-repeat;
+  border-radius: 999px;
+  text-shadow: 0 1px 2px rgba(30, 44, 110, 0.35);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* 有笔触底图时不要再衬纯色和圆角，边缘才是不规整的 */
+.intro-text .cta[style] {
+  background-color: transparent;
+}
+
+.cta:disabled {
+  opacity: 0.6;
+}
+
+.cta:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.fine {
+  margin: 14px auto 0;
+  max-width: 320px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #5b6785;
+}
+
+/* 横屏或很矮的屏幕：文字收紧一点，别压到花上 */
+@media (max-height: 560px) {
+  .intro-text {
+    top: 12px;
+  }
+  .intro-text h1 {
+    width: min(60vw, 260px);
+    margin-top: 2px;
+    font-size: 30px;
+  }
+  .lead {
+    margin: 8px 0 10px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .cta {
+    padding: 10px 30px;
+    font-size: 15px;
+  }
+  .fine {
+    margin-top: 8px;
+    font-size: 11px;
+  }
+}
+
+/* ---------- 相机页 ---------- */
+
+.camera {
+  position: fixed;
+  inset: 0;
+  background: var(--night);
+  color: #fff;
+  overflow: hidden;
+  /* 数码变焦时画面层放大到屏幕外：clip 连程序也滚不动（hidden 还能被按钮获得焦点时滚上去） */
+  overflow: clip;
+}
+
+.camera video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flower-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 数码变焦时整层放大，所以要有自己的尺寸 */
+.xr-host {
+  position: absolute;
+  inset: 0;
+}
+
+/* AR 引擎的画布由 XrStage 放进来。它先在看不见的画布上启动（不能 display: none，它要读尺寸），
+   第一帧出来后才显示。three.js 会改画布的 CSS 尺寸，所以这里要强制。 */
+.xr-host canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.xr-host canvas.pending {
+  opacity: 0;
+}
+
+.camera video.off,
+.flower-layer.off {
+  display: none;
+}
+
+/* 手势都落在这一层，切换舞台时不受影响 */
+.input-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  touch-action: none; /* 不滚动、不缩放页面 */
+}
+
+.camera-top {
+  position: absolute;
+  z-index: 2; /* 盖在提示层和出错层之上，返回按钮始终能点 */
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: max(12px, env(safe-area-inset-top)) 12px 12px;
+  background: linear-gradient(rgba(16, 22, 38, 0.55), rgba(16, 22, 38, 0));
+  pointer-events: none;
+}
+
+.camera-top > * {
+  pointer-events: auto;
+}
+
+.top-note {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ghost {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.camera-note,
+.camera-chip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  white-space: nowrap;
+  background: rgba(16, 22, 38, 0.55);
+  pointer-events: none;
+}
+
+.camera-note {
+  top: 45%;
+}
+
+.camera-chip {
+  z-index: 3;
+  top: 38%;
+  font-size: 16px;
+}
+
+.toolbar {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24px 12px max(14px, calc(env(safe-area-inset-bottom) + 8px));
+  background: linear-gradient(rgba(16, 22, 38, 0), rgba(16, 22, 38, 0.6));
+  pointer-events: none;
+}
+
+.toolbar > * {
+  pointer-events: auto;
+}
+
+.camera-hint {
+  width: fit-content;
+  margin: 0 auto 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  background: rgba(16, 22, 38, 0.55);
+  pointer-events: none !important;
+}
+
+.panel-rows {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.panel-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.legal {
+  margin: 6px 0 0;
+  font-size: 10px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.legal a {
+  color: inherit;
+}
+
+.debug-line {
+  position: absolute;
+  z-index: 3;
+  top: max(52px, calc(env(safe-area-inset-top) + 44px));
+  left: 12px;
+  right: 12px;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  background: rgba(16, 22, 38, 0.62);
+  pointer-events: none;
+}
+
+.seg {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(16, 22, 38, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.seg span {
+  padding: 0 4px 0 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.seg button {
+  border: 0;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 13px;
+  color: #fff;
+  background: transparent;
+}
+
+.seg button.on {
+  color: var(--ink);
+  background: #fff;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 6px;
+}
+
+.actions-side {
+  display: flex;
+  gap: 6px;
+}
+
+.actions-side.right {
+  justify-content: flex-end;
+}
+
+/* 快门：白色圆环 */
+.shutter {
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 4px solid rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 1px rgba(16, 22, 38, 0.25);
+}
+
+.shutter:active {
+  background: rgba(255, 255, 255, 0.75);
+  transform: scale(0.94);
+}
+
+.flash {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  background: #fff;
+  pointer-events: none;
+  animation: flash 0.26s ease-out forwards;
+}
+
+@keyframes flash {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* 拍完的预览：长按图片可以存到相册 */
+.photo-sheet {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  background: rgba(10, 14, 26, 0.9);
+}
+
+.photo-sheet img {
+  max-width: 100%;
+  max-height: calc(100% - 120px);
+  object-fit: contain;
+  border-radius: 12px;
+  -webkit-touch-callout: default;
+  user-select: auto;
+}
+
+.photo-sheet p {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.photo-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.push-right {
+  margin-left: auto;
+}
+
+.ghost:disabled {
+  opacity: 0.4;
+}
+
+.camera-error .cta {
+  background-color: #4763b4;
+}
+
+.camera-error {
+  position: absolute;
+  z-index: 2; /* 盖在手势层之上，“重试”才点得到 */
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  line-height: 1.6;
+}

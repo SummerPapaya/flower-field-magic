@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.wrangler/
+.DS_Store
+*.log
+.env*
+*.local
+
+# 只留在本地、不公开的资料：项目计划，以及最早的真机能力测试页和测试版发回的报告、截图（含设备信息）
+flower-magic-project-plan-v2.md
+probe/

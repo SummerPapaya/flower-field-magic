@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "flower-field-magic",
+  "compatibility_date": "2026-10-01",
+  // 纯静态站点：Vite 构建到 dist/，由 Worker 的静态资源直接提供，没有服务端代码。
+  // 自定义域名在首次部署后到 Cloudflare 控制台绑定（Workers & Pages → flower-field-magic → Settings → Domains）。
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
