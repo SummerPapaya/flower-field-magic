@@ -1,0 +1,18 @@
+# Cloudflare Workers 静态资源的响应头（构建时随 public/ 复制到 dist/）。
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  Permissions-Policy: camera=(self), gyroscope=(self), accelerometer=(self), magnetometer=(self), microphone=(), geolocation=(), payment=(), usb=()
+  # 上线前不让搜索引擎收录；正式上线时删掉下面这一行
+  X-Robots-Tag: noindex, nofollow
+
+# 文件名带哈希，内容变了名字就变，可以永久缓存
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# AR 引擎放在带版本号的目录里，同样可以永久缓存
+/xr/*
+  Cache-Control: public, max-age=31536000, immutable

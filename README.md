@@ -94,7 +94,7 @@ npm run deploy
 
 ## 第三方与授权
 
-- **8th Wall Engine**（npm 包 `@8thwall/engine-binary`）：闭源二进制，按其许可协议使用。构建时从 npm 包复制到 `/xr/`，不提交到本仓库；使用 AR 时，界面里显示版权和许可说明。
+- **8th Wall Engine**（npm 包 `@8thwall/engine-binary`）：闭源二进制，按其许可协议使用。构建时从 npm 包复制到带版本号的目录 `/xr/<版本>/`，不提交到本仓库；使用 AR 时，界面里显示版权和许可说明。
 - **851 GBai 马克笔体**：开场页标题“花田魔法”四个字取自这款字体（8:51:22 pm 原作，lamda05 扩展汉字）。仓库里只存这四个字的图形，不带字体文件；“魔”字右下角原本断开的一笔已经补上。授权允许免费商用、修改和嵌入，不必署名；不得单独售卖字体，不得冒充作者。详见[原作者条款](https://pm85122.onamae.jp/851fontTerm.html)和[猫啃网说明](https://www.maoken.com/freefonts/27979.html)。
 - **three.js**、**React**：MIT 许可。
 

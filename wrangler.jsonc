@@ -2,6 +2,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "flower-field-magic",
   "compatibility_date": "2026-10-01",
+  // 只用自定义域名：不开 *.workers.dev 默认地址（国内常打不开，也多一个能被找到的入口），也不开预览地址
+  "workers_dev": false,
+  "preview_urls": false,
   // 纯静态站点：Vite 构建到 dist/，由 Worker 的静态资源直接提供，没有服务端代码。
   // 自定义域名在首次部署后到 Cloudflare 控制台绑定（Workers & Pages → flower-field-magic → Settings → Domains）。
   "assets": {

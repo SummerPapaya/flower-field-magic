@@ -94,7 +94,7 @@ npm run deploy
 
 ## Third-party software and credits
 
-- **8th Wall Engine** (npm package `@8thwall/engine-binary`): a closed-source binary used under its license. It is copied from the npm package to `/xr/` at build time and is not committed to this repository. The copyright and license notice is shown in the interface while AR is in use.
+- **8th Wall Engine** (npm package `@8thwall/engine-binary`): a closed-source binary used under its license. It is copied from the npm package to a versioned folder, `/xr/<version>/`, at build time and is not committed to this repository. The copyright and license notice is shown in the interface while AR is in use.
 - **851 GBai marker font**: the four characters of the Chinese title "花田魔法" on the start screen come from this font (original by 8:51:22 pm, extended CJK by lamda05). Only the shapes of these four characters are stored, not the font file, and a broken stroke in "魔" has been joined. The license allows free commercial use, modification and embedding without attribution; the font may not be sold on its own and authorship may not be claimed. See the [author's terms](https://pm85122.onamae.jp/851fontTerm.html) and [Maoken's notes](https://www.maoken.com/freefonts/27979.html).
 - **three.js**, **React**: MIT License.
 

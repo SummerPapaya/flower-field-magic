@@ -367,7 +367,7 @@ function buildUi() {
   if (mode === 'ar') {
     const legal = document.createElement('div')
     legal.className = 'legal'
-    legal.innerHTML = 'AR 追踪由 8th Wall Engine 提供，© 2026 Niantic Spatial, Inc.，按<a href="/xr/LICENSE" target="_blank">许可协议</a>使用，不提供任何担保。'
+    legal.innerHTML = `AR 追踪由 8th Wall Engine 提供，© 2026 Niantic Spatial, Inc.，按<a href="${__XR_BASE__}LICENSE" target="_blank">许可协议</a>使用，不提供任何担保。`
     bar.append(legal)
   }
 }

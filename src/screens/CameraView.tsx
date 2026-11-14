@@ -590,7 +590,7 @@ export default function CameraView({ onExit }: Props) {
           {tracking === 'ar' && (
             <p className="legal">
               {t.camera.legal[0]}
-              <a href="/xr/LICENSE" target="_blank" rel="noreferrer">{t.camera.legal[1]}</a>
+              <a href={`${__XR_BASE__}LICENSE`} target="_blank" rel="noreferrer">{t.camera.legal[1]}</a>
               {t.camera.legal[2]}
             </p>
           )}

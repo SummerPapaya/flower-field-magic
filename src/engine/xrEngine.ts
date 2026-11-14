@@ -1,4 +1,4 @@
-// 按需加载 8th Wall 引擎（世界追踪）。引擎来自 npm 包 @8thwall/engine-binary，构建时复制到 /xr/（见 vite.config.ts）。
+// 按需加载 8th Wall 引擎（世界追踪）。引擎来自 npm 包 @8thwall/engine-binary，构建时复制到 /xr/<版本>/（见 vite.config.ts）。
 import * as THREE from 'three'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -25,7 +25,7 @@ export function loadXrEngine(): Promise<XR8Api> {
     }
     addEventListener('xrloaded', () => resolve((window as any).XR8), { once: true })
     const s = document.createElement('script')
-    s.src = '/xr/xr.js'
+    s.src = `${__XR_BASE__}xr.js`
     s.async = true
     s.dataset.preloadChunks = 'slam'
     s.onerror = () => {

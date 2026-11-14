@@ -1,10 +1,16 @@
+import { readFileSync } from 'node:fs'
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // AR 引擎来自 npm 包，不进仓库。只需要这三个文件：世界追踪用不到人脸模型等其他资源。
-const XR_DIR = 'node_modules/@8thwall/engine-binary/dist'
+const XR_PKG = 'node_modules/@8thwall/engine-binary'
+const XR_DIR = `${XR_PKG}/dist`
 const XR_FILES = ['xr.js', 'xr-slam.js', 'LICENSE']
+// 放在带版本号的目录里（/xr/1.0.0/）：文件名不变，可以放心长期缓存，升级引擎时目录跟着变，不会拿到旧缓存。
+// 引擎按 xr.js 自己所在的目录去加载 xr-slam.js，所以两个文件必须在同一个目录。
+const XR_VERSION = JSON.parse(readFileSync(`${XR_PKG}/package.json`, 'utf8')).version as string
+const XR_BASE = `/xr/${XR_VERSION}/`
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function reportEndpoint(server: any) {
@@ -77,16 +83,17 @@ export default defineConfig(({ command, mode }) => {
   return {
   define: {
     __LAB__: JSON.stringify(lab),
+    __XR_BASE__: JSON.stringify(XR_BASE),
     // 测试版显示的版本（构建时间），手机上一眼能看出是不是最新版
     __BUILD__: JSON.stringify(new Date().toLocaleTimeString('zh-CN', { hour12: false, timeZone: 'Asia/Shanghai' })),
   },
   plugins: [
     react(),
     {
-      // 把引擎放到 /xr/：开发时直接提供，构建时复制进 dist。
+      // 把引擎放到 /xr/<版本>/：开发时直接提供，构建时复制进 dist。
       name: 'xr-engine',
       configureServer(server) {
-        server.middlewares.use('/xr', async (req, res, next) => {
+        server.middlewares.use(XR_BASE, async (req, res, next) => {
           const name = (req.url ?? '').split('?')[0].replace(/^\//, '')
           if (!XR_FILES.includes(name)) return next()
           res.setHeader('Content-Type', name.endsWith('.js') ? 'text/javascript' : 'text/plain; charset=utf-8')
@@ -95,8 +102,8 @@ export default defineConfig(({ command, mode }) => {
         })
       },
       async closeBundle() {
-        await mkdir('dist/xr', { recursive: true })
-        await Promise.all(XR_FILES.map((f) => copyFile(`${XR_DIR}/${f}`, `dist/xr/${f}`)))
+        await mkdir(`dist${XR_BASE}`, { recursive: true })
+        await Promise.all(XR_FILES.map((f) => copyFile(`${XR_DIR}/${f}`, `dist${XR_BASE}${f}`)))
       },
     },
     {
