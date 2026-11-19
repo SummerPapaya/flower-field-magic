@@ -1,23 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- 喜林草：五片圆润的花瓣，白色花心往外渐变成蓝，深蓝描边让 16 像素的标签图标也看得清 -->
   <defs>
-    <radialGradient id="p" cx="32" cy="32" r="30" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#fdfbfd"/>
-      <stop offset="0.38" stop-color="#eef3fd"/>
-      <stop offset="0.62" stop-color="#c0d6fa"/>
-      <stop offset="0.85" stop-color="#a1bef5"/>
-      <stop offset="1" stop-color="#88a4df"/>
+    <radialGradient id="p" cx="32" cy="32" r="27" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.3" stop-color="#f1f6ff"/>
+      <stop offset="0.58" stop-color="#a9c4f7"/>
+      <stop offset="0.84" stop-color="#6e91e4"/>
+      <stop offset="1" stop-color="#5677d6"/>
     </radialGradient>
   </defs>
-  <g fill="url(#p)" stroke="#3d59b8" stroke-opacity="0.5" stroke-width="1.2">
-    <path id="petal" d="M32 32 C34 25 40 13 45.5 9.8 C50 7.5 54.5 12 53 16.5 C55 20.5 50.5 26.5 32 32 Z"/>
+  <g fill="url(#p)" stroke="#2f4aa6" stroke-width="1.8" stroke-linejoin="round">
+    <path id="petal" d="M32 33 C26.5 28 20.5 17.5 23.5 10 C26 4.4 38 4.4 40.5 10 C43.5 17.5 37.5 28 32 33 Z"/>
     <use href="#petal" transform="rotate(72 32 32)"/>
     <use href="#petal" transform="rotate(144 32 32)"/>
     <use href="#petal" transform="rotate(216 32 32)"/>
     <use href="#petal" transform="rotate(288 32 32)"/>
   </g>
-  <circle cx="32" cy="32" r="4" fill="#fbfbfc"/>
-  <g fill="#c4b0e0">
-    <circle cx="32" cy="26.5" r="1.4"/><circle cx="37.2" cy="30.3" r="1.4"/><circle cx="35.2" cy="36.5" r="1.4"/>
-    <circle cx="28.8" cy="36.5" r="1.4"/><circle cx="26.8" cy="30.3" r="1.4"/>
+  <circle cx="32" cy="32" r="5.2" fill="#ffffff" stroke="#c9d7f6" stroke-width="0.8"/>
+  <g fill="#7b5fc4">
+    <circle cx="32" cy="24.6" r="1.5"/><circle cx="39" cy="29.7" r="1.5"/><circle cx="36.3" cy="38" r="1.5"/>
+    <circle cx="27.7" cy="38" r="1.5"/><circle cx="25" cy="29.7" r="1.5"/>
   </g>
+  <circle cx="32" cy="32" r="1.8" fill="#f2cf5a"/>
 </svg>

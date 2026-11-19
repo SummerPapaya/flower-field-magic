@@ -38,7 +38,7 @@ export function applyDocumentLang(lang: Lang) {
 
 const zh = {
   docTitle: '花田魔法 · Flower Field Magic',
-  description: '花田魔法：对着相机画面点一下、滑一道，让花在你视野里开成一片花田。',
+  description: '轻触屏幕，开出花海。举起手机相机点一下、滑一道，花就开在你身边的真实地面上。打开网页就能玩，画面不会上传。',
   switchTo: 'EN',
   switchLabel: 'Switch to English',
   intro: {
@@ -106,7 +106,7 @@ export type Strings = typeof zh
 
 const en: Strings = {
   docTitle: 'Flower Field Magic · 花田魔法',
-  description: 'Flower Field Magic: tap or swipe on your camera view and a field of flowers blooms around you.',
+  description: 'Touch the screen and a sea of flowers blooms. Raise your phone’s camera, tap or swipe, and flowers bloom on the real ground around you. It runs right in the browser, and nothing is uploaded.',
   switchTo: '中文',
   switchLabel: '切换到中文',
   intro: {

@@ -70,9 +70,10 @@ cloudflared tunnel --protocol http2 --url http://localhost:5180
 
 ## 部署
 
-纯静态站点，`wrangler.jsonc` 把 `dist/` 配置为 Cloudflare Worker 的静态资源：
+纯静态站点，`wrangler.jsonc` 把 `dist/` 配置为 Cloudflare Worker 的静态资源。部署前在本机建一个 `.env.local`（不进仓库），写上正式网址，分享卡片里的图片地址才是完整的：
 
 ```bash
+echo "SITE_URL=https://你的域名" > .env.local
 npm run deploy
 ```
 

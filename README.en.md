@@ -70,9 +70,10 @@ URL parameters:
 
 ## Deployment
 
-It's a static site. `wrangler.jsonc` serves `dist/` as Cloudflare Worker static assets:
+It's a static site. `wrangler.jsonc` serves `dist/` as Cloudflare Worker static assets. Before deploying, create a local `.env.local` (not committed) with the production URL, so the share card's image URL is absolute:
 
 ```bash
+echo "SITE_URL=https://your.domain" > .env.local
 npm run deploy
 ```
 

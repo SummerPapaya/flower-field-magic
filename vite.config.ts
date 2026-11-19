@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // AR 引擎来自 npm 包，不进仓库。只需要这三个文件：世界追踪用不到人脸模型等其他资源。
@@ -80,6 +80,8 @@ function shotEndpoint(server: any) {
 // 正式构建里 __LAB__ 是 false，这些代码在打包时整段去掉，正式网站不会尝试上传任何东西。
 export default defineConfig(({ command, mode }) => {
   const lab = command === 'serve' || mode === 'lab'
+  // 正式网址：分享卡片里的图片要写完整地址。写在本机的 .env.local（SITE_URL=https://…），不进仓库；没有时退回相对路径
+  const site = (loadEnv(mode, process.cwd(), '').SITE_URL ?? '').replace(/\/$/, '')
   return {
   define: {
     __LAB__: JSON.stringify(lab),
@@ -89,6 +91,7 @@ export default defineConfig(({ command, mode }) => {
   },
   plugins: [
     react(),
+    { name: 'site-url', transformIndexHtml: (html) => html.replaceAll('%SITE_URL%', site) },
     {
       // 把引擎放到 /xr/<版本>/：开发时直接提供，构建时复制进 dist。
       name: 'xr-engine',
