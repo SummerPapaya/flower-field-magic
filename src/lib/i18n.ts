@@ -38,14 +38,14 @@ export function applyDocumentLang(lang: Lang) {
 
 const zh = {
   docTitle: '花田魔法 · Flower Field Magic',
-  description: '轻触屏幕，开出花海。举起手机相机点一下、滑一道，花就开在你身边的真实地面上。打开网页就能玩，画面不会上传。',
+  description: '轻触屏幕，开出花海。举起手机相机点一下、划一道，花就开在你身边的真实地面上。打开网页就能玩，画面不会上传。',
   switchTo: 'EN',
   switchLabel: 'Switch to English',
   intro: {
     eyebrow: '魔法小屋 · Magic House',
     title: '花田魔法',
     subtitle: 'Flower Field Magic',
-    lead: ['举起相机，点一下，滑一道，', '花就在你视野里开成一片花田。'],
+    lead: ['举起相机，点一下，划一道，', '花就在你视野里开成一片花田。'],
     start: '开始拍照',
     starting: '正在准备…',
     fine: ['需要使用相机和陀螺仪。', '画面只在你的手机上处理，不会上传。'],
@@ -59,7 +59,7 @@ const zh = {
     gyroOff: '陀螺仪没开：花不会跟着手机转动',
     opening: '正在打开相机…',
     retry: '重试',
-    hint: '点一下开一片，滑一道开一条花带',
+    hint: '点一下开一片，划一道开一条花带',
     realigned: '已重新对准，位置可能有些偏差',
     arReady: '花已经固定在地上了，可以走动看看',
     arFailed: 'AR 暂时用不了，已切换到普通模式',

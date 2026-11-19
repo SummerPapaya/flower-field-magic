@@ -126,24 +126,28 @@ export function paintTitleText(w: number, h: number, text: string): HTMLCanvasEl
   const r = mulberry32(21)
   const c = makeCanvas(w, h)
   const ctx = c.getContext('2d')!
-  let size = h * 0.6
+  // 按实际墨迹的大小来排：手写体的上伸、下伸笔画很长（f、g），以前按字号排，下伸笔画会伸出标题框，压到下面一行字上
+  let size = h
   ctx.font = `600 ${size}px ${SCRIPT}`
-  const fit = ctx.measureText(text).width
-  if (fit > w * 0.9) size *= (w * 0.9) / fit
+  let m = ctx.measureText(text)
+  const ink = (mm: TextMetrics) => mm.actualBoundingBoxAscent + mm.actualBoundingBoxDescent
+  size *= Math.min((w * 0.9) / m.width, (h * 0.8) / ink(m))
   ctx.font = `600 ${size}px ${SCRIPT}`
+  m = ctx.measureText(text)
   ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
+  ctx.textBaseline = 'alphabetic'
+  // 墨迹整体在框里上下居中
+  const y = h / 2 + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2
   ctx.fillStyle = '#000'
   ctx.strokeStyle = '#000'
   ctx.lineJoin = 'round'
   ctx.lineWidth = size * 0.035 // 手写体的笔画很细，描一圈加粗一点
-  ctx.fillText(text, w / 2, h * 0.54)
-  ctx.strokeText(text, w / 2, h * 0.54)
+  ctx.fillText(text, w / 2, y)
+  ctx.strokeText(text, w / 2, y)
   tint(ctx, w, h, r)
-  const tw = ctx.measureText(text).width
   const R = size * 0.2
   ctx.save()
-  ctx.translate(Math.min(w - R * 1.2, w / 2 + tw / 2 + R * 0.4), h * 0.54 - size * 0.42)
+  ctx.translate(Math.min(w - R * 1.2, w / 2 + m.width / 2 + R * 0.4), Math.max(R * 1.2, y - m.actualBoundingBoxAscent * 0.85))
   blossom(ctx, R, 0.3)
   ctx.restore()
   return c

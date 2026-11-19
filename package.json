@@ -3,7 +3,7 @@
   "private": true,
   "license": "UNLICENSED",
   "version": "0.1.0",
-  "description": "A web camera where a tap or a swipe makes a field of flowers bloom around you, planted in place with AR. 花田魔法：点一下、滑一道，花就在你身边开成一片花田。",
+  "description": "A web camera where a tap or a swipe makes a field of flowers bloom around you, planted in place with AR. 花田魔法：点一下、划一道，花就在你身边开成一片花田。",
   "type": "module",
   "scripts": {
     "dev": "vite",

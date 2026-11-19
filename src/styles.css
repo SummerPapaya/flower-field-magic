@@ -118,6 +118,8 @@ button {
 }
 
 .en:lang(zh-CN) {
+  /* 英文页：标题下面的中文名和手写标题拉开一点 */
+  margin-top: 14px;
   font-family: 'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Source Han Serif SC', serif;
   font-style: normal;
   letter-spacing: 0.3em;
